@@ -6,13 +6,14 @@
 import * as echarts from 'echarts'
 let chart = null
 export default {
-  props: {
+  /*props: {
     title: {
       type: String,
       default: ''
     },
     data: Object
-  },
+    
+  },*/
   methods: {
     initChart () {
       if (null != chart && undefined != chart) {
@@ -24,7 +25,7 @@ export default {
     setOptions() {
       let option = {
         title: {
-          text: this.title,
+          text: '2022中国(含港澳台)累计数据',
           textStyle: {
             fontWeight: 'normal',
             fontSize: 16,
@@ -45,7 +46,7 @@ export default {
           itemWidth: 14,
           itemHeight: 5,
           itemGap: 13,
-          data: ['现有确诊新增', '境外输入新增', '无症状感染者'],
+          data: ['累计现有确诊', '累计治愈人数', '累计死亡人数'],
           right: '4%',
           textStyle: {
             fontSize: 12,
@@ -66,7 +67,7 @@ export default {
               color: '#57617B'
             }
           },
-          data: this.data.dateList
+          data: ['1月','2月','3月','4月','5月','6月','7月']
         }],
         yAxis: [{
           type: 'value',
@@ -93,7 +94,7 @@ export default {
           }
         }],
         series: [{
-          name: '境外输入新增',
+          name: '累计现有确诊',
           type: 'line',
           smooth: true,
           symbol: 'circle',
@@ -135,9 +136,9 @@ export default {
               borderWidth: 2
             }
           },
-          data: this.data.importedIncrDataList
+          data:[132479,130392,228499,475180,681214,2677949,4397515]
         }, {
-          name: '现有确诊新增',
+          name: '累计死亡人数',
           type: 'line',
           smooth: true,
           symbol: 'circle',
@@ -178,10 +179,10 @@ export default {
               borderWidth: 2
             }
           },
-          data: this.data.currentConfirmedIncrDataList
+          data:[5699,5700,6479,13436,15273,16982,21400]
         },
         {
-          name: '无症状感染者',
+          name: '累计治愈人数',
           type: 'line',
           smooth: true,
           symbol: 'circle',
@@ -222,7 +223,7 @@ export default {
               borderWidth: 2
             }
           },
-          data: this.data.noInFectDataList
+          data:[120936,126511,135431,183944,265672,293039,297969]
         }]
       }
       chart.setOption(option)
