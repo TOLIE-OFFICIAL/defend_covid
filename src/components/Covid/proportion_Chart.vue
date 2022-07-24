@@ -1,36 +1,54 @@
 <template>
-  <div ref="ProportionChart" style="width: 100%; height: 100%"></div>
+    <div class="ProportionChart-container">
+  <div ref="ProportionChart" style="width: 100%; height: 100%"> 比例图</div>
+    </div>
 </template>
 <script>
+require('@/styles/echartstheme/chalk')
+import Axios from 'axios'
+import { getArea } from '@/api/covid'
 let chart = null
-const calculateProportion = (value, total) => {
+/*const calculateProportion = (value, total) => {
   return ((value / total) * 100).toFixed(0)
-}
+}*/
 export default {
  
   methods: {
     initChart () {
-      if (null != chart && undefined != chart) {
+     /* if (null != chart && undefined != chart) {
         chart.dispose()
-      }
+      }*/
       chart = this.$echarts.init(this.$refs.ProportionChart)
       this.setOptions()
     },
+ // 对this.allData赋值后调用updatechart更新图表
+ /*   getData() {
+      getArea().then(res => {
+        // console.log(res, 'getArea')
+        if (res.data.success) {
+          
+          this.data = res.data
+         
+        }
+         const SeriesArr_proportion =this.data.results
+         this.setOptions(SeriesArr_proportion)
+      })
+    },*/
     setOptions() {
-      let list = [
+       let list = [
         {
           name: '现有确诊',
-          value: calculateProportion(this.data.currentConfirmedCount, this.data.confirmedCount)
+          value: 12
         },
         {
-          name: '境外输入',
-          value: calculateProportion(this.data.importedCount, this.data.confirmedCount)
+          name: '累计死亡',
+          value: 0.13
         },
         {
           name: '累计治愈',
-          value: calculateProportion(this.data.curedCount, this.data.confirmedCount)
+          value: 86
         }
-      ]
+        ]
       let titleList = [], seriesList = []
       list.forEach((item, index) => {
         titleList.push({
